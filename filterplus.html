@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Filter+ | Fund Management — Vietnam</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── BRAND TOKENS ── */
+    :root {
+      --charcoal:   #1A1A1A;
+      --orange:     #C8511A;
+      --gold:       #C9982A;
+      --cream:      #F2EDE4;
+      --cream-dark: #E8E1D6;
+      --warm-grey:  #8A8580;
+      --white:      #FFFFFF;
+      --font-display: 'Barlow Condensed', sans-serif;
+      --font-body:    'Barlow', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--charcoal);
+      font-family: var(--font-body);
+      font-weight: 400;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── TYPOGRAPHY ── */
+    .display {
+      font-family: var(--font-display);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      line-height: 0.92;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1.05;
+    }
+    .label {
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+    .body-text {
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.72;
+      color: var(--warm-grey);
+    }
+
+    /* ── FP BADGE ── */
+    .fp-badge {
+      background: var(--orange);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .fp-badge span {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(242,237,228,0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(26,26,26,0.1);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-divider {
+      width: 1px;
+      height: 34px;
+      background: rgba(26,26,26,0.15);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.25rem;
+    }
+    .nav-links a {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.8rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      text-decoration: none;
+      opacity: 0.6;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--orange); }
+    .nav-cta {
+      background: var(--orange);
+      color: var(--white) !important;
+      opacity: 1 !important;
+      padding: 0.5rem 1.4rem;
+      border-radius: 2px;
+    }
+    .nav-cta:hover { background: #a8420f; opacity: 1 !important; }
+
+    /* ── LAYOUT ── */
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── DIVIDERS ── */
+    .h-line { width: 100%; height: 1px; background: rgba(26,26,26,0.1); }
+
+    /* ── ACCENT BAR ── */
+    .accent-bar {
+      width: 36px;
+      height: 3px;
+      background: var(--orange);
+      margin-bottom: 1.25rem;
+    }
+    .accent-bar-gold { background: var(--gold); }
+
+    /* ── GOLD STRIPES (brand motif from brand kit) ── */
+    .gold-stripes { display: flex; flex-direction: column; gap: 5px; }
+    .gold-stripes span { display: block; height: 3px; background: var(--gold); }
+
+    /* ── CARDS ── */
+    .pillar-card {
+      background: var(--white);
+      border-top: 3px solid var(--orange);
+      padding: 2.25rem 2rem;
+      transition: box-shadow 0.25s;
+    }
+    .pillar-card:hover { box-shadow: 0 10px 36px rgba(200,81,26,0.1); }
+
+    .stat-card {
+      background: var(--white);
+      border: 1px solid rgba(26,26,26,0.08);
+      padding: 2rem 1.75rem;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .stat-card:hover { border-color: var(--orange); transform: translateY(-3px); }
+
+    .process-card {
+      background: var(--white);
+      border: 1px solid rgba(26,26,26,0.08);
+      padding: 2rem 1.75rem;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .process-card:hover { border-color: var(--orange); transform: translateY(-3px); }
+
+    .sector-card {
+      background: var(--white);
+      border: 1px solid rgba(26,26,26,0.08);
+      padding: 2rem 1.75rem;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .sector-card:hover { border-color: var(--orange); transform: translateY(-3px); }
+
+    .sector-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(200,81,26,0.08);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .filter-step {
+      border-left: 3px solid var(--cream-dark);
+      padding: 0.25rem 0 0.25rem 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .filter-step:hover { border-color: var(--orange); }
+
+    /* ── FRAMEWORK DARK SECTION ── */
+    .dark-sec { background: var(--charcoal); }
+    .fw-step {
+      background: var(--charcoal);
+      padding: 2rem 1.75rem;
+      border-top: 2px solid var(--orange);
+    }
+    .fw-step.gold { border-top-color: var(--gold); }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.85rem 2.25rem;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #a8420f; }
+
+    .btn-outline {
+      display: inline-block;
+      background: transparent;
+      color: var(--charcoal);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.85rem 2.25rem;
+      border-radius: 2px;
+      border: 1.5px solid rgba(26,26,26,0.35);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .btn-outline:hover { background: var(--charcoal); color: var(--white); border-color: var(--charcoal); }
+
+    .btn-outline-white {
+      display: inline-block;
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.85rem 2.25rem;
+      border-radius: 2px;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-outline-white:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.06); }
+
+    /* ── BRIDGE ── */
+    .bridge-node {
+      flex: 1;
+      background: var(--white);
+      border: 1px solid rgba(26,26,26,0.1);
+      padding: 2rem 1.75rem;
+      text-align: center;
+    }
+    .bridge-center {
+      background: var(--orange);
+      color: var(--white);
+      padding: 2rem 1.75rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    /* ── SCROLL FADE ── */
+    .fi {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fi.on { opacity: 1; transform: none; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .two-col { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+      .bridge-wrap { flex-direction: column !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════
+       NAV
+  ════════════════════════════════ -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" title="Back to All Thrive Holdings">
+        <!-- FP Badge -->
+        <div class="fp-badge" style="width:36px;height:36px;border-radius:5px;">
+          <span style="font-size:0.85rem;">FP</span>
+        </div>
+        <div class="nav-divider"></div>
+        <div>
+          <div style="display:flex;align-items:baseline;gap:0;">
+            <span style="font-family:var(--font-display);font-weight:700;font-size:1.15rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--charcoal);line-height:1;">FILTER</span>
+            <span style="font-family:var(--font-display);font-weight:700;font-size:1.3rem;color:var(--orange);line-height:1;margin-left:3px;">+</span>
+          </div>
+          <div style="font-family:var(--font-body);font-weight:400;font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--warm-grey);margin-top:1px;">Fund Management</div>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" style="opacity:0.4;font-size:0.7rem;letter-spacing:0.1em;border-right:1px solid rgba(26,26,26,0.15);padding-right:1.5rem;margin-right:-0.75rem;">← All Thrive</a>
+        <a href="#about">About</a>
+        <a href="#thesis">Thesis</a>
+        <a href="#framework">Framework</a>
+        <a href="#process">Process</a>
+        <a href="#sectors">Sectors</a>
+        <a href="#contact" class="nav-cta">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ════════════════════════════════
+       HERO
+  ════════════════════════════════ -->
+  <section style="padding-top:68px;background:var(--cream);min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;">
+
+    <!-- Gold stripes — top right (brand motif) -->
+    <div style="position:absolute;top:96px;right:3rem;pointer-events:none;" aria-hidden="true">
+      <div class="gold-stripes">
+        <span style="width:280px;"></span>
+        <span style="width:210px;"></span>
+        <span style="width:140px;"></span>
+      </div>
+    </div>
+
+    <!-- Orange left edge stripe -->
+    <div style="position:absolute;top:68px;left:0;width:5px;height:60%;background:var(--orange);opacity:0.15;" aria-hidden="true"></div>
+
+    <div class="wrap" style="padding-top:5rem;padding-bottom:6rem;width:100%;">
+      <div style="max-width:800px;">
+
+        <div class="label fi" style="margin-bottom:1.5rem;">Fund Management · Ho Chi Minh City, Vietnam</div>
+
+        <h1 class="display fi" style="font-size:clamp(3.6rem,9vw,7.5rem);color:var(--charcoal);margin-bottom:1.5rem;">
+          The Strategic<br/>
+          <span style="color:var(--orange);">Gateway</span><br/>
+          To Vietnam
+        </h1>
+
+        <p class="body-text fi" style="font-size:1.05rem;max-width:560px;margin-bottom:2.75rem;">
+          Bridging international capital with rigorously validated Vietnamese investment opportunities — translating market complexity into institutional-grade assets.
+        </p>
+
+        <div class="fi" style="display:flex;flex-wrap:wrap;gap:1rem;">
+          <a href="#framework" class="btn-primary">Explore Our Framework</a>
+          <a href="#about" class="btn-outline">Our Mission</a>
+        </div>
+      </div>
+
+      <!-- Bottom tagline strip -->
+      <div class="fi" style="margin-top:5rem;padding-top:2rem;border-top:1px solid rgba(26,26,26,0.1);display:flex;flex-wrap:wrap;gap:3rem;align-items:center;">
+        <div>
+          <div class="label" style="margin-bottom:0.35rem;">Primary Tagline</div>
+          <p style="font-family:var(--font-display);font-weight:600;font-size:0.9rem;color:var(--charcoal);letter-spacing:0.03em;">The Strategic Gateway to Institutional Investment in Vietnam</p>
+        </div>
+        <div style="width:1px;height:36px;background:rgba(26,26,26,0.12);"></div>
+        <div>
+          <div class="label" style="margin-bottom:0.35rem;">Differentiator</div>
+          <p style="font-family:var(--font-body);font-size:0.875rem;color:var(--warm-grey);max-width:340px;">Deep local expertise. International-grade rigour. Filter+ bridges the trust gap between global investors and the Vietnamese market.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="h-line"></div>
+
+
+  <!-- ════════════════════════════════
+       01 — ABOUT
+  ════════════════════════════════ -->
+  <section id="about" style="padding:6rem 0;background:var(--cream);">
+    <div class="wrap">
+
+      <div class="fi" style="margin-bottom:3.5rem;">
+        <div class="label" style="margin-bottom:0.75rem;">01 — Who We Are</div>
+        <h2 class="section-title" style="font-size:clamp(2rem,4vw,3rem);color:var(--charcoal);">The Firm, The Mission,<br/>The Edge</h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:rgba(26,26,26,0.08);" class="fi">
+
+        <div class="pillar-card">
+          <div class="label" style="margin-bottom:1rem;">The Firm</div>
+          <p class="body-text">A Vietnam-based investment and fund management firm specialising in identifying, evaluating and structuring high-potential opportunities across key sectors of the domestic economy.</p>
+        </div>
+
+        <div class="pillar-card" style="border-top-color:var(--gold);">
+          <div class="label" style="color:var(--gold);margin-bottom:1rem;">The Mission</div>
+          <p class="body-text">A strategic gateway — bridging international capital from regional financial hubs with reliable, well-structured Vietnamese investment opportunities.</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="label" style="margin-bottom:1rem;">The Edge</div>
+          <p class="body-text">Uniting deep local market understanding with rigorous international investment standards. We validate opportunities before introducing them, minimising uncertainty and maximising capital efficiency.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="h-line"></div>
+
+
+  <!-- ════════════════════════════════
+       02 — MACRO THESIS
+  ════════════════════════════════ -->
+  <section id="thesis" style="padding:6rem 0;background:var(--cream-dark);">
+    <div class="wrap">
+
+      <div class="fi" style="margin-bottom:3.5rem;">
+        <div class="label" style="margin-bottom:0.75rem;">02 — The Opportunity</div>
+        <h2 class="section-title" style="font-size:clamp(2rem,4vw,3rem);color:var(--charcoal);">The Macro Thesis</h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2.5rem;" class="fi">
+
+        <div class="stat-card">
+          <div style="font-family:var(--font-display);font-weight:700;font-size:clamp(2.8rem,4.5vw,3.8rem);color:var(--charcoal);line-height:1;">102M<span style="color:var(--orange);">+</span></div>
+          <div class="label" style="margin-top:0.5rem;margin-bottom:0.75rem;">Population</div>
+          <p class="body-text" style="font-size:0.875rem;">One of the largest, youngest and most dynamic consumer markets in Southeast Asia.</p>
+        </div>
+
+        <div class="stat-card">
+          <div style="font-family:var(--font-display);font-weight:700;font-size:clamp(2.8rem,4.5vw,3.8rem);color:var(--charcoal);line-height:1;">52M<span style="color:var(--orange);">+</span></div>
+          <div class="label" style="margin-top:0.5rem;margin-bottom:0.75rem;">Workforce</div>
+          <p class="body-text" style="font-size:0.875rem;">A robust labour supply driving a strategic global manufacturing hub.</p>
+        </div>
+
+        <div class="stat-card">
+          <div style="font-family:var(--font-display);font-weight:700;font-size:clamp(2.2rem,3.5vw,3rem);color:var(--charcoal);line-height:1;">$500<span style="color:var(--orange);">B+</span></div>
+          <div class="label" style="margin-top:0.5rem;margin-bottom:0.75rem;">GDP Trajectory</div>
+          <p class="body-text" style="font-size:0.875rem;">Bolstered by an expanding middle class driving healthcare, real estate and consumer growth.</p>
+        </div>
+
+        <div class="stat-card">
+          <div style="font-family:var(--font-display);font-weight:700;font-size:clamp(2.8rem,4.5vw,3.8rem);color:var(--charcoal);line-height:1;">7–8<span style="color:var(--orange);">%</span></div>
+          <div class="label" style="margin-top:0.5rem;margin-bottom:0.75rem;">Economic Velocity</div>
+          <p class="body-text" style="font-size:0.875rem;">Consistent annual growth, securing a top-tier position within the ASEAN economic bloc.</p>
+        </div>
+
+      </div>
+
+      <div class="fi" style="background:var(--white);border-left:4px solid var(--orange);padding:1.5rem 2rem;">
+        <p class="body-text">Vietnam combines rapid growth with pro-investment government policies, actively encouraging foreign direct investment and international partnership.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="h-line"></div>
+
+
+  <!-- ════════════════════════════════
+       03 & 04 — PARADOX + CAPABILITY
+  ════════════════════════════════ -->
+  <section style="padding:6rem 0;background:var(--cream);">
+    <div class="wrap">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;" class="two-col fi">
+
+        <div>
+          <div class="label" style="margin-bottom:0.75rem;">03 — The Paradox</div>
+          <h2 class="section-title" style="font-size:clamp(1.8rem,3vw,2.5rem);color:var(--charcoal);margin-bottom:2rem;">The Market<br/>Paradox</h2>
+          <div style="display:flex;flex-direction:column;gap:1.25rem;">
+            <div class="filter-step">
+              <p class="body-text" style="font-size:0.9rem;">Rigorous due diligence and financial translation into IFRS standards are non-negotiable for institutional capital.</p>
+            </div>
+            <div class="filter-step">
+              <p class="body-text" style="font-size:0.9rem;">Deep local market knowledge ensures strict regulatory alignment and operational feasibility at every stage.</p>
+            </div>
+            <div class="filter-step">
+              <p class="body-text" style="font-size:0.9rem;">A trusted local network and strategic coordination facilitate transparent, executable communication across jurisdictions.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="label" style="margin-bottom:0.75rem;">04 — The Capability</div>
+          <h2 class="section-title" style="font-size:clamp(1.8rem,3vw,2.5rem);color:var(--charcoal);margin-bottom:2rem;">Curated.<br/>Credible.<br/>Sustainable.</h2>
+          <p class="body-text" style="margin-bottom:1.75rem;font-size:0.9rem;">In emerging markets, opportunities are abundant. However, opportunities possessing the necessary credibility, feasibility and long-term value for sustainable institutional investment are rare.</p>
+          <div style="display:flex;flex-direction:column;gap:1rem;">
+            <div style="display:flex;align-items:flex-start;gap:0.85rem;">
+              <div style="width:8px;height:8px;background:var(--orange);border-radius:50%;margin-top:7px;flex-shrink:0;"></div>
+              <p class="body-text" style="font-size:0.9rem;">Carefully curated projects backed by demonstrable market demand and realistic execution capabilities.</p>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:0.85rem;">
+              <div style="width:8px;height:8px;background:var(--orange);border-radius:50%;margin-top:7px;flex-shrink:0;"></div>
+              <p class="body-text" style="font-size:0.9rem;">Rejecting short-term speculation in favour of investments structured to generate compounding economic value.</p>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:0.85rem;">
+              <div style="width:8px;height:8px;background:var(--orange);border-radius:50%;margin-top:7px;flex-shrink:0;"></div>
+              <p class="body-text" style="font-size:0.9rem;">Absolute synchronisation with Vietnam's regulatory frameworks, operational environment and market dynamics.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="h-line"></div>
+
+
+  <!-- ════════════════════════════════
+       05 — FILTER FRAMEWORK (dark)
+  ════════════════════════════════ -->
+  <section id="framework" style="padding:6rem 0;background:var(--charcoal);">
+    <div class="wrap">
+
+      <div class="fi" style="margin-bottom:3.5rem;">
+        <div class="label" style="color:var(--orange);margin-bottom:0.75rem;">05 — Methodology</div>
+        <h2 class="section-title" style="font-size:clamp(2rem,4vw,3rem);color:var(--white);">The Filter Framework</h2>
+        <p style="font-family:var(--font-body);font-size:0.95rem;color:rgba(255,255,255,0.45);max-width:520px;margin-top:0.75rem;line-height:1.65;">Raw market opportunities transformed into bankable institutional-grade assets through a five-layer evaluation process.</p>
+      </div>
+
+      <!-- Flow arrow -->
+      <div class="fi" style="display:flex;align-items:center;gap:0;margin-bottom:3rem;overflow-x:auto;padding-bottom:4px;">
+        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);padding:0.7rem 1.2rem;white-space:nowrap;">
+          <p style="font-family:var(--font-display);font-weight:700;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.4);line-height:1.5;">Raw Market<br/>Opportunities</p>
+        </div>
+        <div style="flex:1;min-width:24px;height:2px;background:linear-gradient(to right,rgba(200,81,26,0.3),var(--orange));"></div>
+        <div style="width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:10px solid var(--orange);flex-shrink:0;"></div>
+        <div style="background:var(--orange);padding:0.7rem 1.5rem;white-space:nowrap;">
+          <p style="font-family:var(--font-display);font-weight:700;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--white);line-height:1.5;">FILTER+<br/>FRAMEWORK</p>
+        </div>
+        <div style="width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:10px solid var(--gold);flex-shrink:0;"></div>
+        <div style="flex:1;min-width:24px;height:2px;background:linear-gradient(to right,var(--gold),rgba(201,152,42,0.3));"></div>
+        <div style="background:rgba(201,152,42,0.1);border:1px solid rgba(201,152,42,0.35);padding:0.7rem 1.2rem;white-space:nowrap;">
+          <p style="font-family:var(--font-display);font-weight:700;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);line-height:1.5;">Bankable<br/>Assets</p>
+        </div>
+      </div>
+
+      <!-- 5 steps grid -->
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(255,255,255,0.05);" class="fi">
+
+        <div class="fw-step">
+          <div style="font-family:var(--font-display);font-size:2.5rem;font-weight:700;color:rgba(200,81,26,0.18);line-height:1;margin-bottom:0.75rem;">01</div>
+          <div class="label" style="color:var(--orange);margin-bottom:0.75rem;">Market Potential</div>
+          <p style="font-size:0.85rem;line-height:1.65;color:rgba(255,255,255,0.45);">Validating industry demand, growth trends and competitive landscape.</p>
+        </div>
+
+        <div class="fw-step">
+          <div style="font-family:var(--font-display);font-size:2.5rem;font-weight:700;color:rgba(200,81,26,0.18);line-height:1;margin-bottom:0.75rem;">02</div>
+          <div class="label" style="color:var(--orange);margin-bottom:0.75rem;">Operational Feasibility</div>
+          <p style="font-size:0.85rem;line-height:1.65;color:rgba(255,255,255,0.45);">Assessing ground-level execution capability, management capacity and true project readiness.</p>
+        </div>
+
+        <div class="fw-step">
+          <div style="font-family:var(--font-display);font-size:2.5rem;font-weight:700;color:rgba(200,81,26,0.18);line-height:1;margin-bottom:0.75rem;">03</div>
+          <div class="label" style="color:var(--orange);margin-bottom:0.75rem;">Financial Viability</div>
+          <p style="font-size:0.85rem;line-height:1.65;color:rgba(255,255,255,0.45);">Modelling capital efficiency, return potential and optimal ticket sizes for institutional capital.</p>
+        </div>
+
+        <div class="fw-step gold">
+          <div style="font-family:var(--font-display);font-size:2.5rem;font-weight:700;color:rgba(201,152,42,0.2);line-height:1;margin-bottom:0.75rem;">04</div>
+          <div class="label" style="color:var(--gold);margin-bottom:0.75rem;">Regulatory Alignment</div>
+          <p style="font-size:0.85rem;line-height:1.65;color:rgba(255,255,255,0.45);">Ensuring rigorous compliance and translating local practices into IFRS-compliant investment structures.</p>
+        </div>
+
+        <div class="fw-step gold">
+          <div style="font-family:var(--font-display);font-size:2.5rem;font-weight:700;color:rgba(201,152,42,0.2);line-height:1;margin-bottom:0.75rem;">05</div>
+          <div class="label" style="color:var(--gold);margin-bottom:0.75rem;">Strategic Fit</div>
+          <p style="font-size:0.85rem;line-height:1.65;color:rgba(255,255,255,0.45);">Confirming alignment with Vietnam's long-term macroeconomic and developmental trajectory.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       06 — INVESTMENT PROCESS
+  ════════════════════════════════ -->
+  <section id="process" style="padding:6rem 0;background:var(--cream);">
+    <div class="wrap">
+
+      <div class="fi" style="margin-bottom:3.5rem;">
+        <div class="label" style="margin-bottom:0.75rem;">06 — Execution</div>
+        <h2 class="section-title" style="font-size:clamp(2rem,4vw,3rem);color:var(--charcoal);">End-to-End<br/>Investment Process</h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;" class="fi">
+
+        <div class="process-card">
+          <div style="font-family:var(--font-display);font-size:2.75rem;font-weight:700;color:rgba(200,81,26,0.12);line-height:1;margin-bottom:0.75rem;">01</div>
+          <div class="label" style="margin-bottom:0.75rem;">Opportunity Sourcing</div>
+          <p class="body-text" style="font-size:0.9rem;">Leveraging deep local networks, industry connections and proprietary market research to surface high-potential deals.</p>
+        </div>
+
+        <div class="process-card">
+          <div style="font-family:var(--font-display);font-size:2.75rem;font-weight:700;color:rgba(200,81,26,0.12);line-height:1;margin-bottom:0.75rem;">02</div>
+          <div class="label" style="margin-bottom:0.75rem;">Preliminary Screening</div>
+          <p class="body-text" style="font-size:0.9rem;">Applying the multi-layered Filter Framework to determine initial viability before advancing any opportunity.</p>
+        </div>
+
+        <div class="process-card">
+          <div style="font-family:var(--font-display);font-size:2.75rem;font-weight:700;color:rgba(200,81,26,0.12);line-height:1;margin-bottom:0.75rem;">03</div>
+          <div class="label" style="margin-bottom:0.75rem;">Due Diligence</div>
+          <p class="body-text" style="font-size:0.9rem;">Executing uncompromising financial, operational and legal deep-dives with no shortcuts.</p>
+        </div>
+
+        <div class="process-card">
+          <div style="font-family:var(--font-display);font-size:2.75rem;font-weight:700;color:rgba(200,81,26,0.12);line-height:1;margin-bottom:0.75rem;">04</div>
+          <div class="label" style="margin-bottom:0.75rem;">Investment Structuring</div>
+          <p class="body-text" style="font-size:0.9rem;">Designing robust financial models and risk-mitigation frameworks that meet global institutional standards.</p>
+        </div>
+
+        <div class="process-card">
+          <div style="font-family:var(--font-display);font-size:2.75rem;font-weight:700;color:rgba(200,81,26,0.12);line-height:1;margin-bottom:0.75rem;">05</div>
+          <div class="label" style="margin-bottom:0.75rem;">Investor Matching</div>
+          <p class="body-text" style="font-size:0.9rem;">Precisely aligning qualified international capital with selected, de-risked projects.</p>
+        </div>
+
+        <div class="process-card">
+          <div style="font-family:var(--font-display);font-size:2.75rem;font-weight:700;color:rgba(200,81,26,0.12);line-height:1;margin-bottom:0.75rem;">06</div>
+          <div class="label" style="margin-bottom:0.75rem;">Strategic Coordination</div>
+          <p class="body-text" style="font-size:0.9rem;">Providing ongoing support, communication and collaboration between global investors and local stakeholders.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="h-line"></div>
+
+
+  <!-- ════════════════════════════════
+       07 — SECTORS
+  ════════════════════════════════ -->
+  <section id="sectors" style="padding:6rem 0;background:var(--cream-dark);">
+    <div class="wrap">
+
+      <div class="fi" style="margin-bottom:3.5rem;">
+        <div class="label" style="margin-bottom:0.75rem;">07 — Focus Areas</div>
+        <h2 class="section-title" style="font-size:clamp(2rem,4vw,3rem);color:var(--charcoal);">Core Investment Sectors</h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;" class="fi">
+
+        <div class="sector-card">
+          <div class="sector-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8511A" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <div class="label" style="margin-bottom:0.75rem;">Real Estate</div>
+          <p class="body-text" style="font-size:0.875rem;">Urban development and residential projects benefiting from Vietnam's rapid urbanisation.</p>
+        </div>
+
+        <div class="sector-card">
+          <div class="sector-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8511A" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <div class="label" style="margin-bottom:0.75rem;">Healthcare</div>
+          <p class="body-text" style="font-size:0.875rem;">Hospitals and healthcare infrastructure serving Vietnam's rapidly growing middle class.</p>
+        </div>
+
+        <div class="sector-card">
+          <div class="sector-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8511A" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <div class="label" style="margin-bottom:0.75rem;">Industrial & Energy</div>
+          <p class="body-text" style="font-size:0.875rem;">Broad industrial development and energy infrastructure aligned with national strategy.</p>
+        </div>
+
+        <div class="sector-card">
+          <div class="sector-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8511A" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="label" style="margin-bottom:0.75rem;">Agriculture & Production</div>
+          <p class="body-text" style="font-size:0.875rem;">Broad market agriculture and production opportunities across the domestic economy.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="h-line"></div>
+
+
+  <!-- ════════════════════════════════
+       08 — LOCAL INTELLIGENCE
+  ════════════════════════════════ -->
+  <section style="padding:6rem 0;background:var(--cream);">
+    <div class="wrap">
+
+      <div class="fi" style="margin-bottom:3.5rem;">
+        <div class="label" style="margin-bottom:0.75rem;">08 — The Advantage</div>
+        <h2 class="section-title" style="font-size:clamp(2rem,4vw,3rem);color:var(--charcoal);">The Value of<br/>Local Intelligence</h2>
+      </div>
+
+      <!-- Bridge visual -->
+      <div class="fi bridge-wrap" style="display:flex;gap:0;margin-bottom:3.5rem;border:1px solid rgba(26,26,26,0.1);">
+        <div class="bridge-node">
+          <div class="label" style="margin-bottom:0.5rem;">Supply Side</div>
+          <p style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--charcoal);line-height:1.2;">Vietnamese<br/>Project Developers</p>
+        </div>
+        <div class="bridge-center">
+          <div class="fp-badge" style="width:44px;height:44px;margin:0 auto 0.75rem;">
+            <span style="font-size:1.05rem;">FP</span>
+          </div>
+          <p style="font-family:var(--font-display);font-weight:700;font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;">FILTER+</p>
+          <p style="font-family:var(--font-body);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;opacity:0.75;margin-top:0.3rem;">The Alignment Engine</p>
+        </div>
+        <div class="bridge-node">
+          <div class="label" style="margin-bottom:0.5rem;">Demand Side</div>
+          <p style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--charcoal);line-height:1.2;">Global Institutional<br/>Capital</p>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;" class="fi">
+        <div>
+          <div class="accent-bar"></div>
+          <div class="label" style="margin-bottom:0.75rem;">Navigating Culture</div>
+          <p class="body-text" style="font-size:0.9rem;">Providing vital insight into Vietnam's business culture and decision-making processes that remain opaque to external investors.</p>
+        </div>
+        <div>
+          <div class="accent-bar"></div>
+          <div class="label" style="margin-bottom:0.75rem;">Facilitating Transparency</div>
+          <p class="body-text" style="font-size:0.9rem;">Acting as the definitive conduit for clear, transparent communication between global boards and local founders.</p>
+        </div>
+        <div>
+          <div class="accent-bar"></div>
+          <div class="label" style="margin-bottom:0.75rem;">Ensuring Executability</div>
+          <p class="body-text" style="font-size:0.9rem;">Guaranteeing that projects are not merely financially attractive on paper but are functionally executable within Vietnam's market context.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="h-line"></div>
+
+
+  <!-- ════════════════════════════════
+       09 — SYNTHESIS (dark)
+  ════════════════════════════════ -->
+  <section style="padding:6rem 0;background:var(--charcoal);">
+    <div class="wrap">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;" class="two-col fi">
+
+        <div>
+          <!-- Gold stripes motif -->
+          <div class="gold-stripes" style="margin-bottom:2.5rem;">
+            <span style="width:100%;max-width:300px;"></span>
+            <span style="width:65%;max-width:195px;"></span>
+            <span style="width:40%;max-width:120px;"></span>
+          </div>
+          <div class="label" style="color:var(--orange);margin-bottom:0.75rem;">09 — The Synthesis</div>
+          <h2 class="section-title" style="font-size:clamp(2rem,4.5vw,3.5rem);color:var(--white);margin-bottom:1.5rem;">Transforming<br/><span style="color:var(--orange);">Opacity</span><br/>Into Alpha</h2>
+          <p style="font-family:var(--font-body);font-size:0.95rem;line-height:1.75;color:rgba(255,255,255,0.45);">Vietnam offers unparalleled growth but capturing that growth requires mitigating severe cross-border execution risks. Filter+ manufactures institutional-grade safety — allowing global capital to deploy efficiently, transparently and confidently.</p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:0;">
+          <div style="border:1px solid rgba(255,255,255,0.08);padding:2rem;display:flex;align-items:flex-start;gap:1.5rem;">
+            <div style="font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--orange);line-height:1;flex-shrink:0;min-width:2rem;">01</div>
+            <div>
+              <div class="label" style="color:var(--orange);margin-bottom:0.5rem;">Deep Local Network Access</div>
+              <p style="font-size:0.875rem;line-height:1.65;color:rgba(255,255,255,0.45);">Sourcing and validating opportunities invisible to external capital.</p>
+            </div>
+          </div>
+          <div style="border:1px solid rgba(255,255,255,0.08);border-top:none;padding:2rem;display:flex;align-items:flex-start;gap:1.5rem;">
+            <div style="font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--gold);line-height:1;flex-shrink:0;min-width:2rem;">02</div>
+            <div>
+              <div class="label" style="color:var(--gold);margin-bottom:0.5rem;">Institutional Filter Framework</div>
+              <p style="font-size:0.875rem;line-height:1.65;color:rgba(255,255,255,0.45);">An uncompromising, internationally compliant evaluation process.</p>
+            </div>
+          </div>
+          <div style="border:1px solid rgba(255,255,255,0.08);border-top:none;background:rgba(200,81,26,0.08);padding:2rem;display:flex;align-items:flex-start;gap:1.5rem;">
+            <div style="font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--white);line-height:1;flex-shrink:0;min-width:2rem;">→</div>
+            <div>
+              <div class="label" style="color:rgba(255,255,255,0.5);margin-bottom:0.5rem;">Sustainable Alpha</div>
+              <p style="font-size:0.875rem;line-height:1.65;color:rgba(255,255,255,0.45);">Institutional-grade safety. Efficient, transparent, confident capital deployment.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       BRAND PERSONALITY
+  ════════════════════════════════ -->
+  <section style="padding:5rem 0;background:var(--cream-dark);">
+    <div class="wrap">
+      <div class="fi" style="margin-bottom:2.5rem;">
+        <div class="label" style="margin-bottom:0.75rem;">Brand Values</div>
+        <h2 class="section-title" style="font-size:clamp(1.6rem,3vw,2.25rem);color:var(--charcoal);">Who We Are as a Partner</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;" class="fi">
+        <div style="background:var(--white);padding:1.75rem;border-bottom:3px solid var(--orange);">
+          <div class="label" style="margin-bottom:0.6rem;">Authoritative</div>
+          <p class="body-text" style="font-size:0.875rem;">We speak with precision and conviction — backed by research and expertise.</p>
+        </div>
+        <div style="background:var(--white);padding:1.75rem;border-bottom:3px solid var(--gold);">
+          <div class="label" style="color:var(--gold);margin-bottom:0.6rem;">Accessible</div>
+          <p class="body-text" style="font-size:0.875rem;">Technical depth without unnecessary jargon. We make the complex navigable.</p>
+        </div>
+        <div style="background:var(--white);padding:1.75rem;border-bottom:3px solid var(--orange);">
+          <div class="label" style="margin-bottom:0.6rem;">Trustworthy</div>
+          <p class="body-text" style="font-size:0.875rem;">Integrity underpins everything. Our reputation is our most valuable asset.</p>
+        </div>
+        <div style="background:var(--white);padding:1.75rem;border-bottom:3px solid var(--gold);">
+          <div class="label" style="color:var(--gold);margin-bottom:0.6rem;">Forward-Looking</div>
+          <p class="body-text" style="font-size:0.875rem;">We are excited about Vietnam's trajectory and communicate that momentum clearly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════
+       FOOTER / CONTACT
+  ════════════════════════════════ -->
+  <footer id="contact" style="background:var(--charcoal);padding:6rem 0 0;">
+    <div class="wrap">
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;padding-bottom:4rem;" class="two-col fi">
+
+        <!-- Left: call to action -->
+        <div>
+          <!-- Logo lockup (light on dark version) -->
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:2.5rem;">
+            <div class="fp-badge" style="width:44px;height:44px;">
+              <span style="font-size:1.05rem;">FP</span>
+            </div>
+            <div style="width:1px;height:44px;background:rgba(255,255,255,0.15);"></div>
+            <div>
+              <div style="display:flex;align-items:baseline;">
+                <span style="font-family:var(--font-display);font-weight:700;font-size:1.25rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--white);line-height:1;">FILTER</span>
+                <span style="font-family:var(--font-display);font-weight:700;font-size:1.4rem;color:var(--orange);margin-left:3px;line-height:1;">+</span>
+              </div>
+              <div style="font-family:var(--font-body);font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:2px;">Fund Management</div>
+            </div>
+          </div>
+
+          <h3 class="section-title" style="font-size:clamp(1.8rem,3.5vw,2.8rem);color:var(--white);margin-bottom:1.25rem;line-height:1.1;">
+            Partner with Filter+<br/>to navigate<br/><span style="color:var(--orange);">Vietnam's growth.</span>
+          </h3>
+          <p style="font-family:var(--font-body);font-size:0.9rem;line-height:1.7;color:rgba(255,255,255,0.4);max-width:380px;margin-bottom:2rem;">Vietnam's fastest-growing economy demands a specialist gateway. Filter+ is that gateway.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:1rem;">
+            <a href="mailto:contact@filterplus.com" class="btn-primary">Begin Conversation</a>
+            <a href="https://www.filterplus.vn" class="btn-outline-white">filterplus.vn</a>
+          </div>
+        </div>
+
+        <!-- Right: contact details -->
+        <div style="display:flex;flex-direction:column;justify-content:center;gap:2.5rem;">
+          <div>
+            <div class="label" style="color:var(--orange);margin-bottom:0.5rem;">Corporate Headquarters</div>
+            <p style="font-family:var(--font-display);font-weight:600;font-size:1.05rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--white);">Ho Chi Minh City, Vietnam</p>
+          </div>
+          <div>
+            <div class="label" style="color:var(--orange);margin-bottom:0.5rem;">Strategic Gateway Inquiries</div>
+            <a href="mailto:contact@filterplus.com" style="font-family:var(--font-body);font-size:0.95rem;color:rgba(255,255,255,0.65);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#C8511A'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">contact@filterplus.com</a>
+          </div>
+          <div>
+            <div class="label" style="color:var(--orange);margin-bottom:0.5rem;">Website</div>
+            <a href="https://www.filterplus.vn" style="font-family:var(--font-body);font-size:0.95rem;color:rgba(255,255,255,0.65);text-decoration:none;" onmouseover="this.style.color='#C8511A'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">www.filterplus.vn</a>
+          </div>
+          <div>
+            <div class="label" style="color:rgba(255,255,255,0.25);margin-bottom:0.5rem;">Brand Enquiries</div>
+            <a href="mailto:brand@filterplus.vn" style="font-family:var(--font-body);font-size:0.875rem;color:rgba(255,255,255,0.35);text-decoration:none;">brand@filterplus.vn</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div style="border-top:1px solid rgba(255,255,255,0.07);padding:1.5rem 0;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;">
+        <p style="font-family:var(--font-body);font-size:0.78rem;color:rgba(255,255,255,0.25);">© 2025 Filter+ Fund Management. All rights reserved.</p>
+        <p style="font-family:var(--font-display);font-weight:600;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.18);">Transforming Opacity Into Alpha</p>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <script>
+    // Scroll-triggered fade-in
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('on'), (e.target.dataset.d || 0) * 80);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fi').forEach((el, i) => {
+      el.dataset.d = i % 4;
+      obs.observe(el);
+    });
+
+    // Responsive 2-col grids
+    function rwd() {
+      document.querySelectorAll('.two-col').forEach(el => {
+        el.style.gridTemplateColumns = window.innerWidth < 768 ? '1fr' : '1fr 1fr';
+        el.style.gap = window.innerWidth < 768 ? '2.5rem' : '5rem';
+      });
+      // Collapse 3-col grids
+      document.querySelectorAll('[style*="repeat(3,1fr)"]').forEach(el => {
+        el.style.gridTemplateColumns = window.innerWidth < 768 ? '1fr' : window.innerWidth < 1024 ? 'repeat(2,1fr)' : 'repeat(3,1fr)';
+      });
+      // Collapse 4-col grids
+      document.querySelectorAll('[style*="repeat(4,1fr)"]').forEach(el => {
+        el.style.gridTemplateColumns = window.innerWidth < 640 ? '1fr' : window.innerWidth < 1024 ? 'repeat(2,1fr)' : 'repeat(4,1fr)';
+      });
+      // Collapse 5-col grids
+      document.querySelectorAll('[style*="repeat(5,1fr)"]').forEach(el => {
+        el.style.gridTemplateColumns = window.innerWidth < 640 ? '1fr' : window.innerWidth < 900 ? 'repeat(2,1fr)' : 'repeat(5,1fr)';
+      });
+    }
+    window.addEventListener('resize', rwd);
+    rwd();
+  </script>
+
+</body>
+</html>

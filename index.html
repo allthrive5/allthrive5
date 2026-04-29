@@ -76,6 +76,16 @@
       color: var(--muted); text-decoration: none; transition: color 0.25s;
     }
     .nav-links a:hover { color: var(--red); }
+    .nav-fund-mgmt {
+      color: var(--red) !important;
+      border: 1px solid rgba(192,41,43,0.35);
+      padding: 0.3rem 0.85rem;
+      font-size: 0.68rem !important;
+      letter-spacing: 0.13em;
+      transition: background 0.2s, border-color 0.2s !important;
+    }
+    .nav-fund-mgmt:hover { background: var(--red) !important; color: white !important; border-color: var(--red) !important; }
+    .mobile-fund-mgmt { color: var(--red) !important; font-weight: 500; }
     .nav-cta {
       padding: 0.55rem 1.4rem;
       background: var(--red); color: white;
@@ -235,6 +245,19 @@
     .industry-grid {
       display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; margin-top: 2.5rem;
     }
+    .industry-card--fund {
+      grid-column: span 2;
+      background: var(--red) !important;
+      border-color: var(--red) !important;
+      color: white !important;
+      text-decoration: none;
+      display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer;
+      transition: background 0.2s !important;
+    }
+    .industry-card--fund:hover { background: var(--red-dark) !important; border-color: var(--red-dark) !important; }
+    .fund-label { font-weight: 500; letter-spacing: 0.04em; }
+    .fund-arrow { font-size: 1rem; opacity: 0.8; }
     .industry-card {
       padding: 1rem 1.2rem;
       border: 1px solid var(--border);
@@ -499,6 +522,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#vision">Vision</a></li>
     <li><a href="#services">Services</a></li>
+    <li><a href="filterplus.html" class="nav-fund-mgmt">Fund Management</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Get in Touch</a>
@@ -510,6 +534,7 @@
   <a href="#about" class="mobile-link">About</a>
   <a href="#vision" class="mobile-link">Vision</a>
   <a href="#services" class="mobile-link">Services</a>
+  <a href="filterplus.html" class="mobile-link mobile-fund-mgmt">Fund Management ↗</a>
   <a href="#contact" class="mobile-link">Contact</a>
   <a href="#contact" class="mobile-link" style="color:var(--red)">Get in Touch →</a>
 </div>
@@ -589,6 +614,10 @@
         <div class="industry-card">Real Estate</div>
         <div class="industry-card">Financial Services</div>
         <div class="industry-card">Retail &amp; Distribution</div>
+        <a href="filterplus.html" class="industry-card industry-card--fund">
+          <span class="fund-label">Fund Management</span>
+          <span class="fund-arrow">↗</span>
+        </a>
       </div>
     </div>
   </div>
