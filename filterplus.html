@@ -257,23 +257,6 @@
     }
     .btn-outline:hover { background: var(--charcoal); color: var(--white); border-color: var(--charcoal); }
 
-    .btn-outline-white {
-      display: inline-block;
-      background: transparent;
-      color: var(--white);
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 0.8rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 0.85rem 2.25rem;
-      border-radius: 2px;
-      border: 1.5px solid rgba(255,255,255,0.3);
-      text-decoration: none;
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .btn-outline-white:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.06); }
-
     /* ── BRIDGE ── */
     .bridge-node {
       flex: 1;
@@ -303,6 +286,70 @@
       .nav-links { display: none; }
       .two-col { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
       .bridge-wrap { flex-direction: column !important; }
+    }
+
+    /* ── Enquiry form ── */
+    .cta-form { display: flex; flex-direction: column; gap: 0.85rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-group label {
+      font-family: var(--font-body); font-size: 0.62rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff; padding: 0.75rem 0.9rem;
+      font-family: var(--font-body); font-size: 0.84rem;
+      outline: none; width: 100%;
+      transition: border-color 0.2s, background 0.2s;
+      appearance: none; -webkit-appearance: none;
+    }
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.3)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 0.9rem center;
+      padding-right: 2.2rem; cursor: pointer;
+    }
+    .form-group select option { background: #1A1A1A; color: #fff; }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.2); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: #C8511A; background: rgba(200,81,26,0.06); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-submit {
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 0.25rem;
+    }
+    .form-submit-note {
+      font-family: var(--font-body); font-size: 0.68rem;
+      color: rgba(255,255,255,0.25); letter-spacing: 0.04em;
+    }
+    .btn-submit {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      padding: 0.85rem 2rem; background: #C8511A; color: #fff; border: none; cursor: pointer;
+      font-family: var(--font-display); font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      transition: background 0.25s; white-space: nowrap;
+    }
+    .btn-submit:hover { background: #a84015; }
+    .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn-submit svg { transition: transform 0.25s; }
+    .btn-submit:hover svg { transform: translateX(3px); }
+    .form-success {
+      display: none; padding: 1rem 1.25rem;
+      border: 1px solid rgba(200,81,26,0.35); background: rgba(200,81,26,0.08);
+      color: rgba(255,255,255,0.7); font-family: var(--font-body);
+      font-size: 0.84rem; line-height: 1.6;
+    }
+    .form-success.show { display: block; }
+    @media (max-width: 640px) {
+      .form-row { grid-template-columns: 1fr; }
+      .form-submit { flex-direction: column; align-items: flex-start; }
+      .btn-submit { width: 100%; justify-content: center; }
     }
   </style>
 </head>
@@ -821,7 +868,7 @@
   <footer id="contact" style="background:var(--charcoal);padding:6rem 0 0;">
     <div class="wrap">
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;padding-bottom:4rem;" class="two-col fi">
+      <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;padding-bottom:4rem;" class="two-col fi">
 
         <!-- Left: call to action -->
         <div>
@@ -835,29 +882,72 @@
           </h3>
           <p style="font-family:var(--font-body);font-size:0.9rem;line-height:1.7;color:rgba(255,255,255,0.4);max-width:380px;margin-bottom:2rem;">Vietnam's fastest-growing economy demands a specialist gateway. Filter+ is that gateway.</p>
           <div style="display:flex;flex-wrap:wrap;gap:1rem;">
-            <a href="mailto:contact@filterplus.com" class="btn-primary">Begin Conversation</a>
-            <a href="https://www.filterplus.vn" class="btn-outline-white">filterplus.vn</a>
+            <a href="mailto:at@allthrive.com.sg" class="btn-primary">Begin Conversation</a>
           </div>
         </div>
 
-        <!-- Right: contact details -->
-        <div style="display:flex;flex-direction:column;justify-content:center;gap:2.5rem;">
-          <div>
-            <div class="label" style="color:var(--orange);margin-bottom:0.5rem;">Corporate Headquarters</div>
-            <p style="font-family:var(--font-display);font-weight:600;font-size:1.05rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--white);">Ho Chi Minh City, Vietnam</p>
-          </div>
-          <div>
-            <div class="label" style="color:var(--orange);margin-bottom:0.5rem;">Strategic Gateway Inquiries</div>
-            <a href="mailto:contact@filterplus.com" style="font-family:var(--font-body);font-size:0.95rem;color:rgba(255,255,255,0.65);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#C8511A'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">contact@filterplus.com</a>
-          </div>
-          <div>
-            <div class="label" style="color:var(--orange);margin-bottom:0.5rem;">Website</div>
-            <a href="https://www.filterplus.vn" style="font-family:var(--font-body);font-size:0.95rem;color:rgba(255,255,255,0.65);text-decoration:none;" onmouseover="this.style.color='#C8511A'" onmouseout="this.style.color='rgba(255,255,255,0.65)'">www.filterplus.vn</a>
-          </div>
-          <div>
-            <div class="label" style="color:rgba(255,255,255,0.25);margin-bottom:0.5rem;">Brand Enquiries</div>
-            <a href="mailto:brand@filterplus.vn" style="font-family:var(--font-body);font-size:0.875rem;color:rgba(255,255,255,0.35);text-decoration:none;">brand@filterplus.vn</a>
-          </div>
+        <!-- Right: enquiry form from allthrive.com.sg -->
+        <div>
+          <form class="cta-form" id="fp-enquiry-form" action="https://formsubmit.co/at@allthrive.com.sg" method="POST">
+            <input type="hidden" name="_subject" value="New Enquiry – Filter+ Fund Management" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="text" name="_honey" style="display:none" />
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fp-fname">First Name *</label>
+                <input type="text" id="fp-fname" name="First Name" placeholder="Jane" required />
+              </div>
+              <div class="form-group">
+                <label for="fp-lname">Last Name *</label>
+                <input type="text" id="fp-lname" name="Last Name" placeholder="Smith" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="fp-email">Email Address *</label>
+              <input type="email" id="fp-email" name="Email" placeholder="jane@company.com" required />
+            </div>
+
+            <div class="form-group">
+              <label for="fp-company">Company / Organisation</label>
+              <input type="text" id="fp-company" name="Company" placeholder="Your company name" />
+            </div>
+
+            <div class="form-group">
+              <label for="fp-interest">Area of Interest *</label>
+              <select id="fp-interest" name="Area of Interest" required>
+                <option value="" disabled selected>Select a service area</option>
+                <option value="Fund-raising & Financing Advisory">Fund-raising &amp; Financing Advisory</option>
+                <option value="Financial Structuring & Valuation">Financial Structuring &amp; Valuation</option>
+                <option value="Mergers & Acquisitions">Mergers &amp; Acquisitions</option>
+                <option value="Roadmap to IPO">Roadmap to IPO</option>
+                <option value="ESG Compliance & Green Finance">ESG Compliance &amp; Green Finance</option>
+                <option value="Business Development">Business Development</option>
+                <option value="Corporate Structuring">Corporate Structuring</option>
+                <option value="Local Business Investment">Local Business Investment Collaboration</option>
+                <option value="General Enquiry">General Enquiry</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="fp-message">Message *</label>
+              <textarea id="fp-message" name="Message" placeholder="Tell us about your project or inquiry…" required></textarea>
+            </div>
+
+            <div class="form-submit">
+              <span class="form-submit-note">We respond within one business day.</span>
+              <button type="submit" class="btn-submit" id="fp-submit-btn">
+                Send Enquiry
+                <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 4.5h12M9 1l4 3.5-4 3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+
+            <div class="form-success" id="fp-form-success">
+              ✓ &nbsp;Thank you for your enquiry. We'll be in touch at <strong id="fp-confirm-email"></strong> within one business day.
+            </div>
+          </form>
         </div>
 
       </div>
@@ -908,6 +998,36 @@
     }
     window.addEventListener('resize', rwd);
     rwd();
+
+    // Enquiry form — inline success then submit via FormSubmit
+    const fpForm = document.getElementById('fp-enquiry-form');
+    const fpSuccess = document.getElementById('fp-form-success');
+    const fpConfirmEmail = document.getElementById('fp-confirm-email');
+    const fpSubmitBtn = document.getElementById('fp-submit-btn');
+    if (fpForm) {
+      fpForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const emailVal = document.getElementById('fp-email').value;
+        fpSubmitBtn.disabled = true;
+        fpSubmitBtn.textContent = 'Sending…';
+        fetch(fpForm.action, {
+          method: 'POST',
+          body: new FormData(fpForm),
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(() => {
+          fpConfirmEmail.textContent = emailVal;
+          fpSuccess.classList.add('show');
+          fpForm.querySelectorAll('input:not([type=hidden]), select, textarea').forEach(el => el.value = '');
+          fpSubmitBtn.textContent = 'Sent ✓';
+        })
+        .catch(() => {
+          fpSubmitBtn.disabled = false;
+          fpSubmitBtn.textContent = 'Send Enquiry';
+          fpForm.submit();
+        });
+      });
+    }
   </script>
 
 </body>
