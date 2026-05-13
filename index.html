@@ -401,6 +401,65 @@
       .service-item { padding: 1rem 1.25rem; }
     }
 
+    /* Portfolio Companies */
+    .portfolio-section {
+      max-width: 1200px; margin: 3rem auto 0;
+      padding-top: 3rem; border-top: 1px solid var(--border);
+    }
+    .portfolio-label {
+      font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 0.9rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .portfolio-intro {
+      font-size: 0.88rem; color: #666; line-height: 1.75;
+      max-width: 680px; margin-bottom: 2rem;
+    }
+    .portfolio-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+    }
+    .portfolio-card {
+      display: block; text-decoration: none;
+      border: 1px solid var(--border); padding: 2rem;
+      transition: border-color 0.25s, transform 0.25s;
+      position: relative;
+    }
+    .portfolio-card:hover { transform: translateY(-2px); }
+    .portfolio-card--fund { border-left: 3px solid var(--red); background: var(--light-gray); }
+    .portfolio-card--fund:hover { border-color: var(--red); background: white; }
+    .portfolio-card--trust { border-left: 3px solid #2D2D4D; background: var(--light-gray); }
+    .portfolio-card--trust:hover { border-color: #2D2D4D; background: white; }
+    .portfolio-card-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1rem;
+    }
+    .portfolio-badge {
+      font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+      font-weight: 500; padding: 0.25rem 0.75rem;
+    }
+    .portfolio-badge--fund { background: rgba(192,41,43,0.1); color: var(--red); }
+    .portfolio-badge--trust { background: rgba(45,45,77,0.1); color: #2D2D4D; }
+    .portfolio-arrow { font-size: 1rem; color: var(--muted); }
+    .portfolio-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 600;
+      color: var(--charcoal); margin-bottom: 0.75rem; line-height: 1.1;
+    }
+    .portfolio-card--fund .portfolio-card-name span { color: var(--red); }
+    .portfolio-card--trust .portfolio-card-name span { color: #2D2D4D; }
+    .portfolio-card-desc {
+      font-size: 0.82rem; color: #666; line-height: 1.8; margin-bottom: 1.25rem;
+    }
+    .portfolio-card-meta {
+      font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 900px) {
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .portfolio-section { margin-top: 2rem; padding-top: 2rem; }
+    }
+
     /* CTA SECTION */
     #contact { padding: 8rem 3rem; background: var(--charcoal); position: relative; overflow: hidden; }
     #contact::before {
@@ -627,14 +686,6 @@
         <div class="industry-card">Real Estate</div>
         <div class="industry-card">Financial Services</div>
         <div class="industry-card">Retail &amp; Distribution</div>
-        <a href="filterplus.html" class="industry-card industry-card--fund">
-          <span class="fund-label">Fund Management</span>
-          <span class="fund-arrow">↗</span>
-        </a>
-        <a href="theobsidian.html" class="industry-card industry-card--trust">
-          <span class="fund-label">Trust Services</span>
-          <span class="fund-arrow">↗</span>
-        </a>
       </div>
     </div>
   </div>
@@ -702,6 +753,35 @@
       <div class="service-item"><span class="svc-num">04</span><span class="svc-name">ESG Compliance &amp; Green Finance Strategy</span></div>
     </div>
   </div>
+
+  <!-- Portfolio Companies -->
+  <div class="portfolio-section fade-up">
+    <div class="portfolio-label">
+      <span class="label-line"></span>Portfolio Companies
+    </div>
+    <p class="portfolio-intro">Beyond advisory, All Thrive Holdings holds direct stakes in two licensed operating businesses — extending our capabilities into fund management and trust services.</p>
+    <div class="portfolio-grid">
+      <a href="filterplus.html" class="portfolio-card portfolio-card--fund">
+        <div class="portfolio-card-header">
+          <div class="portfolio-badge portfolio-badge--fund">Fund Management</div>
+          <span class="portfolio-arrow">↗</span>
+        </div>
+        <h3 class="portfolio-card-name">Filter+</h3>
+        <p class="portfolio-card-desc">A licensed fund management company based in Ho Chi Minh City, Vietnam. Filter+ identifies, evaluates and structures high-potential investment opportunities across Vietnam's key growth sectors — bridging international capital with rigorously validated local assets.</p>
+        <div class="portfolio-card-meta">Ho Chi Minh City, Vietnam · Licensed Fund Manager</div>
+      </a>
+      <a href="theobsidian.html" class="portfolio-card portfolio-card--trust">
+        <div class="portfolio-card-header">
+          <div class="portfolio-badge portfolio-badge--trust">Trust Services</div>
+          <span class="portfolio-arrow">↗</span>
+        </div>
+        <h3 class="portfolio-card-name">Obsidian Management</h3>
+        <p class="portfolio-card-desc">A licensed trust and wealth solutions provider based in Hong Kong. Obsidian delivers tailored fiduciary, corporate structuring, and asset protection services to institutions, entrepreneurs, and families — with discretion and international-grade rigour.</p>
+        <div class="portfolio-card-meta">Hong Kong · Licensed Trust &amp; Wealth Solutions</div>
+      </a>
+    </div>
+  </div>
+
 </section>
 
 <!-- CONTACT / CTA -->
@@ -765,6 +845,8 @@
             <option value="Business Development">Business Development</option>
             <option value="Corporate Structuring">Corporate Structuring</option>
             <option value="Local Business Investment">Local Business Investment Collaboration</option>
+            <option value="Fund Management">Fund Management</option>
+            <option value="Trust Services">Trust Services</option>
             <option value="General Enquiry">General Enquiry</option>
           </select>
         </div>
