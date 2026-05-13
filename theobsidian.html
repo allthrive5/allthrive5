@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Obsidian Management – Trust & Corporate Services | All Thrive Holdings</title>
+  <meta name="description" content="Obsidian Management is a modern fiduciary and corporate services provider, trusted by institutions, entrepreneurs, and families to safeguard assets, structure growth, and navigate complexity." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MiA1MiIgd2lkdGg9IjUyIiBoZWlnaHQ9IjUyIj4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iNTIiIGhlaWdodD0iNTIiIHJ4PSI0IiBmaWxsPSIjMkQyRDREIi8+CiAgPHRleHQgeD0iOSIgeT0iMzgiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjI4IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjRkZGRkZGIj5PPC90ZXh0Pgo8L3N2Zz4=" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --obsidian: #1A1A2E;
+      --obsidian-mid: #16213E;
+      --obsidian-light: #2D2D4D;
+      --accent: #7C6FF7;
+      --accent-light: #A09AF8;
+      --accent-dim: rgba(124,111,247,0.15);
+      --white: #FFFFFF;
+      --off-white: #F0EEF8;
+      --muted: #9090B0;
+      --border: rgba(255,255,255,0.08);
+      --at-red: #C0392B;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--obsidian);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(26,26,46,0.92);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      padding: 0 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.75rem;
+      text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 34px; height: 34px;
+      background: var(--obsidian-light);
+      border: 1px solid rgba(124,111,247,0.4);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700; color: var(--accent-light);
+      letter-spacing: 0.05em;
+    }
+    .nav-logo-text { display: flex; flex-direction: column; gap: 1px; }
+    .nav-logo-name {
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--white); line-height: 1;
+    }
+    .nav-logo-sub {
+      font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--muted); line-height: 1;
+    }
+    .nav-links-wrap {
+      display: flex; align-items: center; gap: 2.5rem;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-back {
+      font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--at-red); text-decoration: none;
+      border: 1px solid rgba(192,57,43,0.3); padding: 0.4rem 1rem;
+      transition: all 0.2s;
+    }
+    .nav-back:hover { background: var(--at-red); color: white; border-color: var(--at-red); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--white); transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .mobile-menu {
+      display: none; position: fixed; top: 68px; left: 0; right: 0;
+      background: var(--obsidian-mid); border-top: 1px solid var(--border);
+      padding: 1.5rem; z-index: 99; flex-direction: column;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      display: block; padding: 0.9rem 0;
+      font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      border-bottom: 1px solid var(--border); transition: color 0.2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--white); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: flex-end;
+      padding: 9rem 3rem 5rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #0F0F1E 0%, #1A1A2E 50%, #0D1117 100%);
+    }
+    .hero-bg-pattern {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle at 20% 50%, rgba(124,111,247,0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(124,111,247,0.05) 0%, transparent 40%);
+    }
+    .hero-grid-lines {
+      position: absolute; inset: 0; overflow: hidden; opacity: 0.03;
+      background-image: linear-gradient(rgba(124,111,247,1) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(124,111,247,1) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 760px; }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 0.9rem;
+      font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--accent-light); margin-bottom: 2rem;
+    }
+    .eyebrow-line { width: 36px; height: 1px; background: var(--accent); display: block; }
+    h1.hero-title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 700; line-height: 1.05;
+      letter-spacing: -0.02em; color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    h1.hero-title span { color: var(--accent-light); }
+    .hero-sub {
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      color: var(--muted); line-height: 1.75;
+      max-width: 520px; margin-bottom: 2.5rem;
+    }
+    .btn-primary-obs {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.9rem 2.2rem;
+      background: var(--accent); color: white; border: none; cursor: pointer;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; text-decoration: none;
+      transition: background 0.25s; border-radius: 2px;
+    }
+    .btn-primary-obs:hover { background: var(--accent-light); color: var(--obsidian); }
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; right: 3rem; z-index: 1;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    }
+    .hero-scroll span {
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.2); writing-mode: vertical-rl;
+    }
+    .scroll-bar {
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: sb 2s ease-in-out infinite;
+    }
+    @keyframes sb { 0%,100% { opacity:0.4; } 50% { opacity:1; } }
+
+    /* ── SECTIONS ── */
+    section { position: relative; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
+    .section-label {
+      font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .label-line { width: 28px; height: 1px; background: var(--accent); display: block; }
+    h2.section-title {
+      font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700;
+      line-height: 1.1; letter-spacing: -0.02em;
+    }
+    h2.section-title span { color: var(--accent-light); }
+
+    /* ── ABOUT ── */
+    #about { padding: 7rem 0; background: var(--obsidian); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: 6rem; align-items: center;
+    }
+    .about-body p {
+      color: var(--muted); line-height: 1.9; font-size: 0.92rem; margin-bottom: 1.25rem;
+    }
+    .about-stat-row {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2.5rem;
+    }
+    .about-stat {
+      padding: 1.25rem; border: 1px solid var(--border);
+      background: rgba(124,111,247,0.04); text-align: center;
+    }
+    .about-stat-num {
+      font-size: 1.8rem; font-weight: 700; color: var(--accent-light);
+      line-height: 1; margin-bottom: 0.3rem;
+    }
+    .about-stat-label { font-size: 0.65rem; letter-spacing: 0.15em; color: var(--muted); text-transform: uppercase; }
+
+    /* ── SOLUTIONS ── */
+    #solutions { padding: 7rem 0; background: var(--obsidian-mid); }
+    .solutions-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px;
+      margin-top: 4rem; background: var(--border);
+    }
+    .solution-card {
+      background: var(--obsidian-mid); padding: 2.5rem 2rem;
+      transition: background 0.3s;
+    }
+    .solution-card:hover { background: rgba(124,111,247,0.06); }
+    .solution-icon {
+      width: 40px; height: 40px; border-radius: 8px;
+      background: var(--accent-dim); border: 1px solid rgba(124,111,247,0.25);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .solution-icon svg { width: 18px; height: 18px; stroke: var(--accent-light); fill: none; stroke-width: 1.5; }
+    .solution-card h3 {
+      font-size: 0.95rem; font-weight: 600; letter-spacing: 0.03em;
+      color: var(--white); margin-bottom: 0.75rem;
+    }
+    .solution-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.75; }
+
+    /* ── BENEFITS ── */
+    #benefits { padding: 7rem 0; background: var(--obsidian); }
+    .benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 4rem; }
+    .benefit-item {
+      padding: 1.75rem; border: 1px solid var(--border);
+      display: flex; gap: 1.2rem; align-items: flex-start;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .benefit-item:hover { border-color: rgba(124,111,247,0.3); background: var(--accent-dim); }
+    .benefit-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0; margin-top: 5px;
+    }
+    .benefit-item h4 { font-size: 0.86rem; font-weight: 600; color: var(--white); margin-bottom: 0.4rem; }
+    .benefit-item p { font-size: 0.8rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── PROFILES ── */
+    #profiles { padding: 7rem 0; background: var(--obsidian-mid); }
+    .profiles-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 4rem; }
+    .profile-card {
+      padding: 2rem; border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .profile-card:hover { border-color: rgba(124,111,247,0.3); background: var(--accent-dim); }
+    .profile-tag {
+      display: inline-block; padding: 0.25rem 0.75rem;
+      background: var(--accent-dim); border: 1px solid rgba(124,111,247,0.25);
+      font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--accent-light); margin-bottom: 1rem;
+    }
+    .profile-card h3 { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 0.75rem; }
+    .profile-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.75; }
+
+    /* ── CONTACT ── */
+    #contact {
+      padding: 7rem 0 0;
+      background: linear-gradient(180deg, var(--obsidian-mid) 0%, #0D0D1A 100%);
+      position: relative; overflow: hidden;
+    }
+    #contact::before {
+      content: ''; position: absolute;
+      top: -200px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,111,247,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .contact-inner {
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: 6rem;
+      padding-bottom: 5rem; position: relative; z-index: 1;
+    }
+    .contact-left h2.section-title { color: var(--white); }
+    .contact-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.85; margin-top: 1.5rem; }
+    .contact-email-direct { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .contact-email-direct p { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 0.4rem; }
+    .contact-email-direct a { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--accent); text-decoration: none; }
+    .contact-email-direct a:hover { color: var(--accent-light); }
+
+    /* ── FORM ── */
+    .cta-form { display: flex; flex-direction: column; gap: 0.85rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-group label {
+      font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      color: #fff; padding: 0.75rem 0.9rem;
+      font-family: 'Inter', sans-serif; font-size: 0.84rem;
+      outline: none; width: 100%;
+      transition: border-color 0.2s, background 0.2s;
+      appearance: none; -webkit-appearance: none; border-radius: 2px;
+    }
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.3)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 0.9rem center;
+      padding-right: 2.2rem; cursor: pointer;
+    }
+    .form-group select option { background: #1A1A2E; color: #fff; }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.2); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--accent); background: rgba(124,111,247,0.06); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-submit {
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap;
+      gap: 1rem; margin-top: 0.25rem;
+    }
+    .form-submit-note { font-size: 0.66rem; color: rgba(255,255,255,0.25); letter-spacing: 0.04em; }
+    .btn-submit {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      padding: 0.85rem 2rem; background: var(--accent); color: #fff; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      transition: background 0.25s; white-space: nowrap; border-radius: 2px;
+    }
+    .btn-submit:hover { background: var(--accent-light); color: var(--obsidian); }
+    .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+    .btn-submit svg { transition: transform 0.25s; }
+    .btn-submit:hover svg { transform: translateX(3px); }
+    .form-success {
+      display: none; padding: 1rem 1.25rem;
+      border: 1px solid rgba(124,111,247,0.35); background: rgba(124,111,247,0.08);
+      color: rgba(255,255,255,0.75); font-size: 0.84rem; line-height: 1.6;
+    }
+    .form-success.show { display: block; }
+
+    /* ── FOOTER ── */
+    .footer-bar {
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem; display: flex;
+      justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-bar p { font-size: 0.68rem; color: rgba(255,255,255,0.25); letter-spacing: 0.05em; }
+    .footer-bar a { font-size: 0.68rem; color: var(--at-red); text-decoration: none; }
+    .footer-bar a:hover { color: #e05555; }
+
+    /* ── FADE-IN ── */
+    .fade-up { opacity:0; transform:translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-up.visible { opacity:1; transform:translateY(0); }
+    .d1 { transition-delay:0.1s; } .d2 { transition-delay:0.2s; } .d3 { transition-delay:0.3s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links, .nav-back { display: none; }
+      .hamburger { display: flex; }
+      .wrap { padding: 0 1.5rem; }
+      #hero { padding: 7rem 1.5rem 4rem; }
+      .hero-scroll { display: none; }
+      .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .solutions-grid, .profiles-grid { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .about-stat-row { grid-template-columns: repeat(2,1fr); }
+      #about, #solutions, #benefits, #profiles, #contact { padding: 5rem 0; }
+      .footer-bar { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 540px) {
+      .form-row { grid-template-columns: 1fr; }
+      .form-submit { flex-direction: column; align-items: flex-start; }
+      .btn-submit { width: 100%; justify-content: center; }
+      .about-stat-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo" title="Back to All Thrive Holdings">
+    <div class="nav-logo-icon">OM</div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Obsidian</span>
+      <span class="nav-logo-sub">Management</span>
+    </div>
+  </a>
+  <div class="nav-links-wrap">
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#solutions">Solutions</a></li>
+      <li><a href="#benefits">Benefits</a></li>
+      <li><a href="#profiles">Profiles</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="index.html" class="nav-back">← All Thrive</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about" class="mob-link">About</a>
+  <a href="#solutions" class="mob-link">Solutions</a>
+  <a href="#benefits" class="mob-link">Benefits</a>
+  <a href="#profiles" class="mob-link">Profiles</a>
+  <a href="#contact" class="mob-link">Contact</a>
+  <a href="index.html" class="mob-link" style="color:var(--at-red)">← Back to All Thrive</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-line"></span>
+      Trust &amp; Corporate Services
+    </div>
+    <h1 class="hero-title">
+      Your Partner in<br/><span>Protected Wealth.</span>
+    </h1>
+    <p class="hero-sub">We deliver tailored, long-term solutions across traditional and digital spheres — defined by integrity, intelligence, and discretion.</p>
+    <a href="#contact" class="btn-primary-obs">
+      Start the Conversation
+      <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 4.5h12M9 1l4 3.5-4 3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <div class="scroll-bar"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <div class="section-label fade-up"><span class="label-line"></span>Who We Are</div>
+        <h2 class="section-title fade-up d1">Where Insight<br/><span>Drives Confidence</span></h2>
+        <div class="about-stat-row fade-up d2">
+          <div class="about-stat"><div class="about-stat-num">100%</div><div class="about-stat-label">Discretion</div></div>
+          <div class="about-stat"><div class="about-stat-num">360°</div><div class="about-stat-label">Solutions</div></div>
+          <div class="about-stat"><div class="about-stat-num">AI</div><div class="about-stat-label">Driven</div></div>
+        </div>
+      </div>
+      <div class="about-body">
+        <p class="fade-up">Obsidian Management is a modern fiduciary and corporate services provider, trusted by institutions, entrepreneurs, and families to safeguard assets, structure growth, and navigate complexity.</p>
+        <p class="fade-up d1">Every move guided by data and professional insights for smarter portfolio protection. We unite deep local market understanding with rigorous international investment standards — validating opportunities before introducing them to minimise uncertainty.</p>
+        <p class="fade-up d2">Industry-leading portfolio protection and growth, with diversified assets tailored to achieve optimal growth and real-time portfolio optimisation adjusted to market changes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTIONS -->
+<section id="solutions">
+  <div class="wrap">
+    <div class="section-label fade-up"><span class="label-line"></span>What We Offer</div>
+    <h2 class="section-title fade-up d1">Smarter Planning<br/><span>Starts Here</span></h2>
+    <div class="solutions-grid">
+      <div class="solution-card fade-up">
+        <div class="solution-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Transparent Portfolio Tracking</h3>
+        <p>Monitor portfolio growth in real-time with an easy-to-read overview of your assets and current analytics.</p>
+      </div>
+      <div class="solution-card fade-up d1">
+        <div class="solution-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3>Seamless Asset Allocation</h3>
+        <p>Balance allocation across asset classes for better returns and long-term portfolio stability.</p>
+      </div>
+      <div class="solution-card fade-up d2">
+        <div class="solution-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Smart Risk Management</h3>
+        <p>Proprietary AI analysis highlights volatility and trends to minimise risk exposure and maximise growth.</p>
+      </div>
+      <div class="solution-card fade-up">
+        <div class="solution-icon">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h3>Tax Optimisation</h3>
+        <p>Optimise tax arrangements strategically. No erosion. Pure growth through intelligent structuring.</p>
+      </div>
+      <div class="solution-card fade-up d1">
+        <div class="solution-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>Real-Time Insights</h3>
+        <p>Live analytics provide clarity for every investment decision. Access market data to make timely and informed moves.</p>
+      </div>
+      <div class="solution-card fade-up d2">
+        <div class="solution-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Fast, Frictionless Onboarding</h3>
+        <p>No long on-boarding processes. Onboard with ease through a streamlined, client-first process.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section id="benefits">
+  <div class="wrap">
+    <div class="section-label fade-up"><span class="label-line"></span>Why Obsidian</div>
+    <h2 class="section-title fade-up d1">Safeguarding Your Wealth<br/><span>Through Excellence</span></h2>
+    <div class="benefits-grid">
+      <div class="benefit-item fade-up">
+        <div class="benefit-dot"></div>
+        <div><h4>Portfolio Monitoring</h4><p>Smart rebalancing to maximise growth and control risk effectively across all asset classes.</p></div>
+      </div>
+      <div class="benefit-item fade-up d1">
+        <div class="benefit-dot"></div>
+        <div><h4>Real-Time Insights</h4><p>Live analytics provide clarity for every investment decision, backed by proprietary data models.</p></div>
+      </div>
+      <div class="benefit-item fade-up d2">
+        <div class="benefit-dot"></div>
+        <div><h4>Tax Optimisation</h4><p>Optimise tax arrangements intelligently. Structured for pure growth, with no unnecessary erosion.</p></div>
+      </div>
+      <div class="benefit-item fade-up">
+        <div class="benefit-dot"></div>
+        <div><h4>Adaptive Risk Management</h4><p>AI models adjust exposure based on changing market dynamics and volatility in real time.</p></div>
+      </div>
+      <div class="benefit-item fade-up d1">
+        <div class="benefit-dot"></div>
+        <div><h4>Performance Tracking</h4><p>Monitor performance in real-time with clear metrics, visual reporting, and actionable summaries.</p></div>
+      </div>
+      <div class="benefit-item fade-up d2">
+        <div class="benefit-dot"></div>
+        <div><h4>Maximise Returns, Minimise Effort</h4><p>A proven system that saves you time and worry while consistently delivering institutional-grade results.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFILES -->
+<section id="profiles">
+  <div class="wrap">
+    <div class="section-label fade-up"><span class="label-line"></span>Who We Serve</div>
+    <h2 class="section-title fade-up d1">Bespoke Trust Solutions<br/><span>For Any Need</span></h2>
+    <div class="profiles-grid">
+      <div class="profile-card fade-up">
+        <div class="profile-tag">Business Owners</div>
+        <h3>Corporate &amp; Enterprise</h3>
+        <p>Comprehensive, secure asset management and strategic advisory services designed to help you navigate the growing complexities of modern business finance with clarity and confidence.</p>
+      </div>
+      <div class="profile-card fade-up d1">
+        <div class="profile-tag">Private Clients</div>
+        <h3>Private Wealth</h3>
+        <p>Bespoke wealth structuring and protection strategies for high-net-worth individuals and families seeking long-term financial security and legacy planning.</p>
+      </div>
+      <div class="profile-card fade-up d2">
+        <div class="profile-tag">Digital Asset Holders</div>
+        <h3>Digital &amp; Crypto Assets</h3>
+        <p>Specialist management for digital asset portfolios — bridging traditional fiduciary standards with the emerging digital economy.</p>
+      </div>
+      <div class="profile-card fade-up">
+        <div class="profile-tag">Privacy Advocates</div>
+        <h3>Confidential Structures</h3>
+        <p>Discreet, legally robust structures for clients who prioritise privacy, asset protection, and confidentiality in their financial affairs.</p>
+      </div>
+      <div class="profile-card fade-up d1">
+        <div class="profile-tag">Global Tax Residence</div>
+        <h3>International Planning</h3>
+        <p>Strategic guidance for individuals and entities seeking optimal tax residency, cross-border structuring, and international compliance.</p>
+      </div>
+      <div class="profile-card fade-up d2">
+        <div class="profile-tag">Institutions</div>
+        <h3>Institutional Services</h3>
+        <p>Tailored solutions for family offices, foundations, and institutional clients requiring sophisticated fiduciary and corporate governance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-inner">
+      <div class="contact-left">
+        <div class="section-label fade-up"><span class="label-line"></span>Get in Touch</div>
+        <h2 class="section-title fade-up d1">Start the<br/><span>conversation today</span></h2>
+        <p class="contact-desc fade-up d2">Schedule a call with us and discover our comprehensive suite of services we can tailor for you to safeguard and grow your personal wealth and business assets.</p>
+        <div class="contact-email-direct fade-up d3">
+          <p>Direct enquiries</p>
+          <a href="mailto:at@allthrive.com.sg">at@allthrive.com.sg</a>
+        </div>
+      </div>
+      <div class="fade-up d2">
+        <form class="cta-form" id="obs-enquiry-form" action="https://formsubmit.co/at@allthrive.com.sg" method="POST">
+          <input type="hidden" name="_subject" value="New Enquiry – Obsidian Management (Trust Services)" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="text" name="_honey" style="display:none" />
+          <div class="form-row">
+            <div class="form-group">
+              <label for="obs-fname">First Name *</label>
+              <input type="text" id="obs-fname" name="First Name" placeholder="Jane" required />
+            </div>
+            <div class="form-group">
+              <label for="obs-lname">Last Name *</label>
+              <input type="text" id="obs-lname" name="Last Name" placeholder="Smith" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="obs-email">Email Address *</label>
+            <input type="email" id="obs-email" name="Email" placeholder="jane@company.com" required />
+          </div>
+          <div class="form-group">
+            <label for="obs-company">Company / Organisation</label>
+            <input type="text" id="obs-company" name="Company" placeholder="Your company name" />
+          </div>
+          <div class="form-group">
+            <label for="obs-interest">Area of Interest *</label>
+            <select id="obs-interest" name="Area of Interest" required>
+              <option value="" disabled selected>Select a service area</option>
+              <option value="Portfolio Monitoring">Portfolio Monitoring</option>
+              <option value="Asset Allocation">Asset Allocation &amp; Structuring</option>
+              <option value="Tax Optimisation">Tax Optimisation</option>
+              <option value="Risk Management">Risk Management</option>
+              <option value="Private Wealth">Private Wealth Management</option>
+              <option value="Digital Assets">Digital &amp; Crypto Assets</option>
+              <option value="Corporate Services">Corporate Services</option>
+              <option value="International Planning">International Tax Planning</option>
+              <option value="General Enquiry">General Enquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="obs-message">Message *</label>
+            <textarea id="obs-message" name="Message" placeholder="Tell us about your requirements…" required></textarea>
+          </div>
+          <div class="form-submit">
+            <span class="form-submit-note">We respond within one business day.</span>
+            <button type="submit" class="btn-submit" id="obs-submit-btn">
+              Send Enquiry
+              <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 4.5h12M9 1l4 3.5-4 3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <div class="form-success" id="obs-form-success">
+            ✓ &nbsp;Thank you for your enquiry. We'll be in touch at <strong id="obs-confirm-email"></strong> within one business day.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <p>© 2025 Obsidian Management. All rights reserved. A partner of <a href="index.html">All Thrive Holdings Pte Ltd</a>.</p>
+    <a href="index.html">← Back to All Thrive Holdings</a>
+  </div>
+</section>
+
+<script>
+  // Fade-in on scroll
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  // Nav active state
+  const sections = document.querySelectorAll('section[id]');
+  const navAs = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) cur = s.id; });
+    navAs.forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? '#fff' : ''; });
+  });
+
+  // Hamburger
+  const hb = document.getElementById('hamburger');
+  const mm = document.getElementById('mobile-menu');
+  hb.addEventListener('click', () => { hb.classList.toggle('open'); mm.classList.toggle('open'); });
+  document.querySelectorAll('.mob-link').forEach(l => l.addEventListener('click', () => {
+    hb.classList.remove('open'); mm.classList.remove('open');
+  }));
+
+  // Form submission
+  const form = document.getElementById('obs-enquiry-form');
+  const success = document.getElementById('obs-form-success');
+  const confirmEmail = document.getElementById('obs-confirm-email');
+  const submitBtn = document.getElementById('obs-submit-btn');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const emailVal = document.getElementById('obs-email').value;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      fetch(form.action, {
+        method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' }
+      })
+      .then(() => {
+        confirmEmail.textContent = emailVal;
+        success.classList.add('show');
+        form.querySelectorAll('input:not([type=hidden]), select, textarea').forEach(el => el.value = '');
+        submitBtn.textContent = 'Sent ✓';
+      })
+      .catch(() => { submitBtn.disabled = false; submitBtn.textContent = 'Send Enquiry'; form.submit(); });
+    });
+  }
+</script>
+</body>
+</html>

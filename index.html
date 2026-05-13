@@ -256,6 +256,17 @@
       transition: background 0.2s !important;
     }
     .industry-card--fund:hover { background: var(--red-dark) !important; border-color: var(--red-dark) !important; }
+    .industry-card--trust {
+      grid-column: span 2;
+      background: #2D2D4D !important;
+      border-color: #2D2D4D !important;
+      color: white !important;
+      text-decoration: none;
+      display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer;
+      transition: background 0.2s !important;
+    }
+    .industry-card--trust:hover { background: #1A1A2E !important; border-color: #1A1A2E !important; }
     .fund-label { font-weight: 500; letter-spacing: 0.04em; }
     .fund-arrow { font-size: 1rem; opacity: 0.8; }
     .industry-card {
@@ -523,6 +534,7 @@
     <li><a href="#vision">Vision</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="filterplus.html" class="nav-fund-mgmt">Fund Management</a></li>
+    <li><a href="theobsidian.html" class="nav-fund-mgmt">Trust Services</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Get in Touch</a>
@@ -535,6 +547,7 @@
   <a href="#vision" class="mobile-link">Vision</a>
   <a href="#services" class="mobile-link">Services</a>
   <a href="filterplus.html" class="mobile-link mobile-fund-mgmt">Fund Management ↗</a>
+  <a href="theobsidian.html" class="mobile-link mobile-fund-mgmt">Trust Services ↗</a>
   <a href="#contact" class="mobile-link">Contact</a>
   <a href="#contact" class="mobile-link" style="color:var(--red)">Get in Touch →</a>
 </div>
@@ -616,6 +629,10 @@
         <div class="industry-card">Retail &amp; Distribution</div>
         <a href="filterplus.html" class="industry-card industry-card--fund">
           <span class="fund-label">Fund Management</span>
+          <span class="fund-arrow">↗</span>
+        </a>
+        <a href="theobsidian.html" class="industry-card industry-card--trust">
+          <span class="fund-label">Trust Services</span>
           <span class="fund-arrow">↗</span>
         </a>
       </div>
