@@ -86,6 +86,31 @@
     }
     .nav-fund-mgmt:hover { background: var(--red) !important; color: white !important; border-color: var(--red) !important; }
     .mobile-fund-mgmt { color: var(--red) !important; font-weight: 500; }
+    /* Portfolio Companies dropdown */
+    .nav-dropdown { position: relative; }
+    .nav-dropdown-menu {
+      display: none; position: absolute;
+      top: calc(100% + 12px); left: 50%; transform: translateX(-50%);
+      background: white; border: 1px solid var(--border);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      list-style: none; min-width: 230px; z-index: 200; padding: 0.5rem 0;
+    }
+    .nav-dropdown:hover .nav-dropdown-menu { display: block; }
+    .nav-dropdown-menu li a {
+      display: block; padding: 0.65rem 1.25rem;
+      font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--charcoal) !important; text-decoration: none;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-dropdown-menu li:last-child a { border-bottom: none; }
+    .nav-dropdown-menu li a:hover { background: var(--light-gray); color: var(--red) !important; }
+    /* Mobile */
+    .mobile-section-label {
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); padding: 0.9rem 0 0.25rem; font-weight: 500;
+    }
+    .mobile-portfolio { color: var(--charcoal) !important; padding-left: 0.75rem; font-size: 0.8rem; }
     .nav-cta {
       padding: 0.55rem 1.4rem;
       background: var(--red); color: white;
@@ -455,6 +480,14 @@
       color: var(--muted); padding-top: 1rem;
       border-top: 1px solid var(--border);
     }
+    .portfolio-card--bien { border-left: 3px solid #E85D2B; background: var(--light-gray); }
+    .portfolio-card--bien:hover { border-color: #E85D2B; background: white; }
+    .portfolio-card--iconsult { border-left: 3px solid #0A1B3D; background: var(--light-gray); }
+    .portfolio-card--iconsult:hover { border-color: #0A1B3D; background: white; }
+    .portfolio-badge--bien { background: rgba(232,93,43,0.1); color: #E85D2B; }
+    .portfolio-badge--iconsult { background: rgba(10,27,61,0.1); color: #0A1B3D; }
+    .portfolio-card--bien .portfolio-card-name span { color: #E85D2B; }
+    .portfolio-card--iconsult .portfolio-card-name span { color: #0A1B3D; }
     @media (max-width: 900px) {
       .portfolio-grid { grid-template-columns: 1fr; }
       .portfolio-section { margin-top: 2rem; padding-top: 2rem; }
@@ -592,8 +625,15 @@
     <li><a href="#about">About</a></li>
     <li><a href="#vision">Vision</a></li>
     <li><a href="#services">Services</a></li>
-    <li><a href="filterplus.html" class="nav-fund-mgmt">Fund Management</a></li>
-    <li><a href="theobsidian.html" class="nav-fund-mgmt">Trust Services</a></li>
+    <li class="nav-dropdown">
+      <a href="#services" class="nav-fund-mgmt nav-dropdown-toggle">Portfolio Companies ▾</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="filterplus.html">Filter+ Fund Management</a></li>
+        <li><a href="theobsidian.html">Obsidian Management</a></li>
+        <li><a href="https://bienandbeyond.com/" target="_blank" rel="noopener noreferrer">Bien &amp; Beyond ↗</a></li>
+        <li><a href="https://iconsultant.vercel.app/" target="_blank" rel="noopener noreferrer">iConsultant ↗</a></li>
+      </ul>
+    </li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="nav-cta">Get in Touch</a>
@@ -605,8 +645,11 @@
   <a href="#about" class="mobile-link">About</a>
   <a href="#vision" class="mobile-link">Vision</a>
   <a href="#services" class="mobile-link">Services</a>
-  <a href="filterplus.html" class="mobile-link mobile-fund-mgmt">Fund Management ↗</a>
-  <a href="theobsidian.html" class="mobile-link mobile-fund-mgmt">Trust Services ↗</a>
+  <div class="mobile-section-label">Portfolio Companies</div>
+  <a href="filterplus.html" class="mobile-link mobile-portfolio">Filter+ Fund Management ↗</a>
+  <a href="theobsidian.html" class="mobile-link mobile-portfolio">Obsidian Management ↗</a>
+  <a href="https://bienandbeyond.com/" target="_blank" rel="noopener noreferrer" class="mobile-link mobile-portfolio">Bien &amp; Beyond ↗</a>
+  <a href="https://iconsultant.vercel.app/" target="_blank" rel="noopener noreferrer" class="mobile-link mobile-portfolio">iConsultant ↗</a>
   <a href="#contact" class="mobile-link">Contact</a>
   <a href="#contact" class="mobile-link" style="color:var(--red)">Get in Touch →</a>
 </div>
@@ -778,6 +821,24 @@
         <h3 class="portfolio-card-name">Obsidian Management</h3>
         <p class="portfolio-card-desc">A licensed trust and wealth solutions provider based in Hong Kong. Obsidian delivers tailored fiduciary, corporate structuring, and asset protection services to institutions, entrepreneurs, and families — with discretion and international-grade rigour.</p>
         <div class="portfolio-card-meta">Hong Kong · Licensed Trust &amp; Wealth Solutions</div>
+      </a>
+      <a href="https://bienandbeyond.com/" target="_blank" rel="noopener noreferrer" class="portfolio-card portfolio-card--bien">
+        <div class="portfolio-card-header">
+          <div class="portfolio-badge portfolio-badge--bien">Events &amp; Marketing</div>
+          <span class="portfolio-arrow">↗</span>
+        </div>
+        <h3 class="portfolio-card-name">Bien &amp; <span>Beyond</span></h3>
+        <p class="portfolio-card-desc">A creative events and marketing agency based in Ho Chi Minh City, Vietnam. Bien &amp; Beyond produces brand experiences that move — from large-scale live events and brand activations to campaigns, content and design — serving global brands and local leaders across Vietnam.</p>
+        <div class="portfolio-card-meta">Ho Chi Minh City, Vietnam · Events &amp; Brand Experience</div>
+      </a>
+      <a href="https://iconsultant.vercel.app/" target="_blank" rel="noopener noreferrer" class="portfolio-card portfolio-card--iconsult">
+        <div class="portfolio-card-header">
+          <div class="portfolio-badge portfolio-badge--iconsult">AI &amp; Technology</div>
+          <span class="portfolio-arrow">↗</span>
+        </div>
+        <h3 class="portfolio-card-name">i<span>Consultant</span></h3>
+        <p class="portfolio-card-desc">A business, operations and IT consultancy that advises, designs and builds the systems that make an organisation work as one. iConsultant integrates AI, custom software and enterprise infrastructure across Eastern and Western technology ecosystems — helping businesses in Asia-Pacific operate with greater coherence and intelligence.</p>
+        <div class="portfolio-card-meta">Asia-Pacific · AI Consultancy &amp; Systems Integration</div>
       </a>
     </div>
   </div>
