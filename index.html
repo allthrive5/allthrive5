@@ -90,10 +90,20 @@
     .nav-dropdown { position: relative; }
     .nav-dropdown-menu {
       display: none; position: absolute;
-      top: calc(100% + 12px); left: 50%; transform: translateX(-50%);
+      top: 100%; left: 50%; transform: translateX(-50%);
+      padding-top: 12px;
+      background: transparent;
+      list-style: none; min-width: 230px; z-index: 200;
+    }
+    .nav-dropdown-menu::before {
+      content: ''; display: block;
+      height: 12px; width: 100%;
+      position: absolute; top: 0; left: 0;
+    }
+    .nav-dropdown-menu-inner {
       background: white; border: 1px solid var(--border);
       box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-      list-style: none; min-width: 230px; z-index: 200; padding: 0.5rem 0;
+      padding: 0.5rem 0;
     }
     .nav-dropdown:hover .nav-dropdown-menu { display: block; }
     .nav-dropdown-menu li a {
@@ -628,10 +638,12 @@
     <li class="nav-dropdown">
       <a href="#services" class="nav-fund-mgmt nav-dropdown-toggle">Portfolio Companies ▾</a>
       <ul class="nav-dropdown-menu">
-        <li><a href="filterplus.html">Filter+ Fund Management</a></li>
-        <li><a href="theobsidian.html">Obsidian Management</a></li>
-        <li><a href="https://bienandbeyond.com/" target="_blank" rel="noopener noreferrer">Bien &amp; Beyond ↗</a></li>
-        <li><a href="https://iconsultant.vercel.app/" target="_blank" rel="noopener noreferrer">iConsultant ↗</a></li>
+        <div class="nav-dropdown-menu-inner">
+          <li><a href="filterplus.html">Filter+ Fund Management</a></li>
+          <li><a href="theobsidian.html">Obsidian Management</a></li>
+          <li><a href="https://bienandbeyond.com/" target="_blank" rel="noopener noreferrer">Bien &amp; Beyond ↗</a></li>
+          <li><a href="https://iconsultant.vercel.app/" target="_blank" rel="noopener noreferrer">iConsultant ↗</a></li>
+        </div>
       </ul>
     </li>
     <li><a href="#contact">Contact</a></li>
