@@ -73,7 +73,7 @@
       font-family: var(--at-sans);
       font-size: 0.5rem; font-weight: 400;
       letter-spacing: 0.22em;
-      color: var(--at-taupe-dark);
+      color: var(--at-steel);
       text-transform: uppercase;
       margin-top: 2px;
     }
@@ -164,28 +164,28 @@
     /* ═══ HERO ═══ */
     #hero {
       min-height: 100vh;
-      background: var(--at-bg);
+      background: var(--at-chocolate);
       display: flex; flex-direction: column; justify-content: center;
       padding: 9rem 3rem 5rem;
       position: relative; overflow: hidden;
     }
-    /* Subtle geometric accent — brand mark silhouette in parchment shade */
+    /* Subtle geometric accent on dark ground */
     .hero-bg-shape {
       position: absolute; top: -80px; right: -80px;
       width: 600px; height: 600px;
-      border: 1px solid rgba(74,64,56,0.07);
+      border: 1px solid rgba(237,230,216,0.06);
       border-radius: 50%;
       pointer-events: none;
     }
     .hero-bg-shape::before {
       content: ''; position: absolute; inset: 60px;
-      border: 1px solid rgba(74,64,56,0.04); border-radius: 50%;
+      border: 1px solid rgba(237,230,216,0.03); border-radius: 50%;
     }
     .hero-corner-box {
       position: absolute; bottom: 3rem; right: 3rem;
       width: 160px; height: 160px;
-      border-top: 2px solid rgba(226,122,42,0.18);
-      border-right: 2px solid rgba(226,122,42,0.18);
+      border-top: 2px solid rgba(226,122,42,0.25);
+      border-right: 2px solid rgba(226,122,42,0.25);
       pointer-events: none;
     }
     .hero-watermark {
@@ -193,11 +193,24 @@
       font-family: var(--at-serif);
       font-size: clamp(6rem, 16vw, 18rem);
       font-weight: 700;
-      color: rgba(74,64,56,0.04);
+      color: rgba(237,230,216,0.04);
       pointer-events: none; user-select: none;
       letter-spacing: -0.03em; line-height: 1;
     }
-    .hero-content { position: relative; z-index: 1; max-width: 720px; }
+    /* Two-column hero layout — text left, brand mark right */
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 1200px; width: 100%;
+      display: grid; grid-template-columns: 1fr 320px; gap: 5rem; align-items: center;
+    }
+    .hero-content { }
+    .hero-mark-col {
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-mark-col svg {
+      width: 260px; height: 260px;
+      opacity: 0.92;
+    }
     .hero-eyebrow {
       display: flex; align-items: center; gap: 0.9rem;
       font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
@@ -209,10 +222,10 @@
       font-family: var(--at-serif);
       font-size: clamp(3rem, 7vw, 5.5rem);
       font-weight: 300; line-height: 1.05;
-      color: var(--at-chocolate); letter-spacing: -0.01em;
+      color: var(--at-cream); letter-spacing: -0.01em;
       margin-bottom: 1.5rem;
     }
-    h1.hero-title strong { font-weight: 600; color: var(--at-chocolate); display: block; }
+    h1.hero-title strong { font-weight: 600; color: white; display: block; }
     .hero-sub {
       font-family: var(--at-serif);
       font-size: clamp(1.1rem, 2vw, 1.4rem);
@@ -223,7 +236,7 @@
     .btn-primary {
       display: inline-flex; align-items: center; gap: 0.6rem;
       padding: 0.9rem 2.2rem;
-      background: var(--at-chocolate); color: var(--at-cream);
+      background: var(--at-orange); color: white;
       font-family: var(--at-sans);
       font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
       text-decoration: none; transition: opacity 0.25s;
@@ -234,11 +247,11 @@
     .btn-ghost {
       display: inline-block;
       font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--at-taupe); text-decoration: none;
-      border-bottom: 1px solid var(--at-line);
+      color: var(--at-steel); text-decoration: none;
+      border-bottom: 1px solid rgba(165,165,160,0.4);
       padding-bottom: 2px; transition: color 0.25s, border-color 0.25s;
     }
-    .btn-ghost:hover { color: var(--at-chocolate); border-color: var(--at-chocolate); }
+    .btn-ghost:hover { color: var(--at-cream); border-color: var(--at-cream); }
     .hero-scroll-indicator {
       position: absolute; bottom: 2.5rem; left: 3rem;
       display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem;
@@ -246,7 +259,7 @@
     }
     .hero-scroll-indicator span {
       font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--at-steel);
+      color: rgba(165,165,160,0.7);
     }
     .scroll-bar {
       width: 1px; height: 44px;
@@ -614,6 +627,8 @@
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; }
       #hero { padding: 7rem 1.5rem 5rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-mark-col { display: none; }
       .hero-corner-box { display: none; }
       .stats-bar { flex-direction: column; gap: 1.5rem; padding: 2.5rem 1.5rem; }
       .stat-item { border-right: none; border-bottom: 1px solid rgba(237,230,216,0.15); padding: 0 0 1.5rem; }
@@ -707,22 +722,37 @@
   <div class="hero-watermark" aria-hidden="true">THRIVE</div>
   <div class="hero-corner-box" aria-hidden="true"></div>
 
-  <div class="hero-content">
-    <div class="hero-eyebrow">
-      <span class="eyebrow-line"></span>
-      All Thrive Holdings Pte Ltd
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-line"></span>
+        All Thrive Holdings Pte Ltd
+      </div>
+      <h1 class="hero-title">
+        Capital
+        <strong>&amp; Strategy</strong>
+      </h1>
+      <p class="hero-sub">The bridge to success in Vietnam.</p>
+      <div class="hero-actions">
+        <a href="#about" class="btn-primary">
+          Discover our work
+          <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 4.5h12M9 1l4 3.5-4 3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#vision" class="btn-ghost">Our Vision</a>
+      </div>
     </div>
-    <h1 class="hero-title">
-      Capital
-      <strong>&amp; Strategy</strong>
-    </h1>
-    <p class="hero-sub">The bridge to success in Vietnam.</p>
-    <div class="hero-actions">
-      <a href="#about" class="btn-primary">
-        Discover our work
-        <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 4.5h12M9 1l4 3.5-4 3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-      <a href="#vision" class="btn-ghost">Our Vision</a>
+
+    <div class="hero-mark-col" aria-hidden="true">
+      <!-- Reversed mark: cream TL for dark grounds -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 88">
+        <rect x="0"  y="0"  width="42" height="42" fill="#EDE6D8"/>
+        <rect x="46" y="0"  width="42" height="42" fill="#8B807A"/>
+        <rect x="0"  y="46" width="42" height="42" fill="#A5A5A0"/>
+        <rect x="46" y="46" width="20" height="20" fill="#6B6058"/>
+        <rect x="68" y="46" width="20" height="20" fill="#8B807A"/>
+        <rect x="46" y="68" width="20" height="20" fill="#A5A5A0"/>
+        <rect x="68" y="68" width="20" height="20" fill="#E27A2A"/>
+      </svg>
     </div>
   </div>
 
