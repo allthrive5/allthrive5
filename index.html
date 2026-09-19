@@ -197,19 +197,9 @@
       pointer-events: none; user-select: none;
       letter-spacing: -0.03em; line-height: 1;
     }
-    /* Two-column hero layout — text left, brand mark right */
     .hero-inner {
       position: relative; z-index: 1;
-      max-width: 1200px; width: 100%;
-      display: grid; grid-template-columns: 1fr 320px; gap: 5rem; align-items: center;
-    }
-    .hero-content { }
-    .hero-mark-col {
-      display: flex; align-items: center; justify-content: center;
-    }
-    .hero-mark-col svg {
-      width: 260px; height: 260px;
-      opacity: 0.92;
+      max-width: 720px; width: 100%;
     }
     .hero-eyebrow {
       display: flex; align-items: center; gap: 0.9rem;
@@ -273,15 +263,15 @@
 
     /* ═══ STATS BAR ═══ */
     .stats-bar {
-      background: var(--at-chocolate);
+      background: var(--at-orange);
       padding: 2rem 3rem;
       display: flex; justify-content: center; align-items: center;
       gap: 0;
     }
     .stat-item {
-      flex: 1; text-align: center; color: var(--at-cream);
+      flex: 1; text-align: center; color: white;
       padding: 0 2rem;
-      border-right: 1px solid rgba(237,230,216,0.15);
+      border-right: 1px solid rgba(255,255,255,0.25);
     }
     .stat-item:last-child { border-right: none; }
     .stat-num {
@@ -291,7 +281,7 @@
     }
     .stat-label {
       font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
-      opacity: 0.55;
+      opacity: 0.75;
     }
 
     /* ═══ ABOUT ═══ */
@@ -627,8 +617,6 @@
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; }
       #hero { padding: 7rem 1.5rem 5rem; }
-      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
-      .hero-mark-col { display: none; }
       .hero-corner-box { display: none; }
       .stats-bar { flex-direction: column; gap: 1.5rem; padding: 2.5rem 1.5rem; }
       .stat-item { border-right: none; border-bottom: 1px solid rgba(237,230,216,0.15); padding: 0 0 1.5rem; }
@@ -723,36 +711,21 @@
   <div class="hero-corner-box" aria-hidden="true"></div>
 
   <div class="hero-inner">
-    <div class="hero-content">
-      <div class="hero-eyebrow">
-        <span class="eyebrow-line"></span>
-        All Thrive Holdings Pte Ltd
-      </div>
-      <h1 class="hero-title">
-        Capital
-        <strong>&amp; Strategy</strong>
-      </h1>
-      <p class="hero-sub">The bridge to success in Vietnam.</p>
-      <div class="hero-actions">
-        <a href="#about" class="btn-primary">
-          Discover our work
-          <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 4.5h12M9 1l4 3.5-4 3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <a href="#vision" class="btn-ghost">Our Vision</a>
-      </div>
+    <div class="hero-eyebrow">
+      <span class="eyebrow-line"></span>
+      All Thrive Holdings Pte Ltd
     </div>
-
-    <div class="hero-mark-col" aria-hidden="true">
-      <!-- Reversed mark: cream TL for dark grounds -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 88">
-        <rect x="0"  y="0"  width="42" height="42" fill="#EDE6D8"/>
-        <rect x="46" y="0"  width="42" height="42" fill="#8B807A"/>
-        <rect x="0"  y="46" width="42" height="42" fill="#A5A5A0"/>
-        <rect x="46" y="46" width="20" height="20" fill="#6B6058"/>
-        <rect x="68" y="46" width="20" height="20" fill="#8B807A"/>
-        <rect x="46" y="68" width="20" height="20" fill="#A5A5A0"/>
-        <rect x="68" y="68" width="20" height="20" fill="#E27A2A"/>
-      </svg>
+    <h1 class="hero-title">
+      Capital
+      <strong>&amp; Strategy</strong>
+    </h1>
+    <p class="hero-sub">The bridge to success in Vietnam.</p>
+    <div class="hero-actions">
+      <a href="#about" class="btn-primary">
+        Discover our work
+        <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 4.5h12M9 1l4 3.5-4 3.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#vision" class="btn-ghost">Our Vision</a>
     </div>
   </div>
 
